@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :regions
+  resources :countries
   resources :lecons
   resources :topics, only: [:index, :show]
   #get 'topics/index'
