@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  resources :type_exercices
-  resources :matieres
-  resources :series
-  resources :niveaus
-  resources :exercices
   resources :lecons
   resources :topics, only: [:index, :show]
   #get 'topics/index'
