@@ -1,0 +1,2 @@
+class Mainsdoeuvre < ApplicationRecord
+end
