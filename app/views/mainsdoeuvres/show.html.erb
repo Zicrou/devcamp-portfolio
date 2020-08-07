@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="col-sm-8 blog-main">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nom:</strong>
-  <%= @mainsdoeuvre.nom %>
-</p>
+  <p>
+    <strong>Nom:</strong>
+    <%= @mainsdoeuvre.nom %>
+  </p>
 
-<p>
-  <strong>Prenom:</strong>
-  <%= @mainsdoeuvre.prenom %>
-</p>
+  <p>
+    <strong>Prenom:</strong>
+    <%= @mainsdoeuvre.prenom %>
+  </p>
 
-<p>
-  <strong>Telephone:</strong>
-  <%= @mainsdoeuvre.telephone %>
-</p>
+  <p>
+    <strong>Telephone:</strong>
+    <%= @mainsdoeuvre.telephone %>
+  </p>
 
-<%= link_to 'Edit', edit_mainsdoeuvre_path(@mainsdoeuvre) %> |
-<%= link_to 'Back', mainsdoeuvres_path %>
+  <%= link_to 'Edit', edit_mainsdoeuvre_path(@mainsdoeuvre) %> |
+  <%= link_to 'Back', mainsdoeuvres_path %>
+</div>

@@ -11,22 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :nom %>
-    <%= form.text_field :nom %>
+  <div class="col-md-12">
+    <div class=form-group>
+      <%= form.label :nom %>
+      <%= form.text_field :nom, class:"form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :prenom %>
-    <%= form.text_field :prenom %>
+  <div class="col-md-12">
+    <div class=form-group>
+      <%= form.label :prenom %>
+      <%= form.text_field :prenom, class:"form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :telephone %>
-    <%= form.text_field :telephone %>
+  <div class="col-md-12">
+    <div class=form-group>
+      <%= form.label :telephone %>
+      <%= form.text_field :telephone, class:"form-control" %>
+    </div>
+    
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="col-md-12">
+    <div class=form-group>
+      <%= form.submit class:"form-control btn-primary" %>
+    </div>
   </div>
 <% end %>
