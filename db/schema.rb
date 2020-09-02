@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_041013) do
+ActiveRecord::Schema.define(version: 2020_09_02_161004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,14 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
     t.index ["slug"], name: "index_blogs_on_slug", unique: true
   end
 
+  create_table "centres", force: :cascade do |t|
+    t.string "numcentre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "departement_id"
+    t.index ["departement_id"], name: "index_centres_on_departement_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id"
@@ -102,6 +110,29 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "eleves", force: :cascade do |t|
+    t.string "nom"
+    t.string "prenom"
+    t.string "cni"
+    t.string "telephone"
+    t.string "numtable"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "epreuves", force: :cascade do |t|
+    t.string "sujet"
+    t.bigint "matiere_id"
+    t.bigint "seri_id"
+    t.bigint "niveau_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matiere_id"], name: "index_epreuves_on_matiere_id"
+    t.index ["niveau_id"], name: "index_epreuves_on_niveau_id"
+    t.index ["seri_id"], name: "index_epreuves_on_seri_id"
+  end
+
   create_table "etablissements", force: :cascade do |t|
     t.string "name"
     t.string "adresse"
@@ -129,6 +160,14 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "juris", force: :cascade do |t|
+    t.string "numjuri"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "centre_id"
+    t.index ["centre_id"], name: "index_juris_on_centre_id"
   end
 
   create_table "lecons", force: :cascade do |t|
@@ -183,10 +222,13 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
     t.string "adresse"
     t.bigint "region_id"
     t.string "telephone2"
+    t.bigint "user_id"
+    t.string "cni"
     t.index ["departement_id"], name: "index_ouvriers_on_departement_id"
     t.index ["domaine_id"], name: "index_ouvriers_on_domaine_id"
     t.index ["metier_id"], name: "index_ouvriers_on_metier_id"
     t.index ["region_id"], name: "index_ouvriers_on_region_id"
+    t.index ["user_id"], name: "index_ouvriers_on_user_id"
   end
 
   create_table "portfolios", force: :cascade do |t|
@@ -236,6 +278,27 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
     t.text "badge"
   end
 
+  create_table "students", force: :cascade do |t|
+    t.string "nom"
+    t.string "prenom"
+    t.string "cni"
+    t.string "telephone"
+    t.string "numtable"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "etablissement_id"
+    t.bigint "niveau_id"
+    t.bigint "seri_id"
+    t.bigint "juri_id"
+    t.bigint "centre_id"
+    t.index ["centre_id"], name: "index_students_on_centre_id"
+    t.index ["etablissement_id"], name: "index_students_on_etablissement_id"
+    t.index ["juri_id"], name: "index_students_on_juri_id"
+    t.index ["niveau_id"], name: "index_students_on_niveau_id"
+    t.index ["seri_id"], name: "index_students_on_seri_id"
+  end
+
   create_table "technologies", force: :cascade do |t|
     t.string "name"
     t.bigint "portfolio_id"
@@ -261,8 +324,10 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
     t.datetime "updated_at", null: false
     t.string "roles"
     t.bigint "profil_id"
+    t.bigint "region_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["profil_id"], name: "index_users_on_profil_id"
+    t.index ["region_id"], name: "index_users_on_region_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -273,10 +338,15 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
   add_foreign_key "blogs", "matieres"
   add_foreign_key "blogs", "niveaus"
   add_foreign_key "blogs", "seris"
+  add_foreign_key "centres", "departements"
   add_foreign_key "comments", "blogs"
   add_foreign_key "comments", "users"
   add_foreign_key "departements", "regions"
+  add_foreign_key "epreuves", "matieres"
+  add_foreign_key "epreuves", "niveaus"
+  add_foreign_key "epreuves", "seris"
   add_foreign_key "etablissements", "departements"
+  add_foreign_key "juris", "centres"
   add_foreign_key "matieres", "niveaus"
   add_foreign_key "matieres", "seris"
   add_foreign_key "metiers", "domaines"
@@ -284,8 +354,15 @@ ActiveRecord::Schema.define(version: 2020_08_24_041013) do
   add_foreign_key "ouvriers", "domaines"
   add_foreign_key "ouvriers", "metiers"
   add_foreign_key "ouvriers", "regions"
+  add_foreign_key "ouvriers", "users"
   add_foreign_key "regions", "countries"
   add_foreign_key "seris", "niveaus"
+  add_foreign_key "students", "centres"
+  add_foreign_key "students", "etablissements"
+  add_foreign_key "students", "juris"
+  add_foreign_key "students", "niveaus"
+  add_foreign_key "students", "seris"
   add_foreign_key "technologies", "portfolios"
   add_foreign_key "users", "profils"
+  add_foreign_key "users", "regions"
 end
