@@ -7,8 +7,11 @@ class Ouvrier < ApplicationRecord
     
     validates_presence_of :name, :prenom, :telephone, :adresse, :metier_id, :domaine_id, :region_id, :departement_id, :numerocni, :user_id
     
-  mount_uploader :photocni, OuvrierUploader
-  mount_uploader :photo, OuvrierUploader
+  
+    has_one_attached :photocni
+    has_one_attached :photo
+  #mount_uploader :photocni, OuvrierUploader
+  #mount_uploader :photo, OuvrierUploader
 
 
   
