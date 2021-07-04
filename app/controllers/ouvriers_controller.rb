@@ -120,6 +120,7 @@ layout 'general-layout'
   def edit
     @departements = Departement.all
     @metiers = Metier.all
+    @regions = Region.all
   end
 
   # POST /ouvriers
