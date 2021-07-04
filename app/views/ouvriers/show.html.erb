@@ -3,12 +3,12 @@
 
   <p>
     <strong>Photo:</strong>
-    <%= image_tag @ouvrier.photo.to_s, width:'10%' %>
+    <%= image_tag @ouvrier.photo, width:'10%' if @ouvrier.photo.attached? %>
   </p>
 
   <p>
     <strong>Photo CNI:</strong>
-    <%= image_tag @ouvrier.photocni.to_s, width:'10%' %>
+    <%= image_tag @ouvrier.photocni, width:'10%' if @ouvrier.photocni.attached? %>
   </p>
   
   <p>
